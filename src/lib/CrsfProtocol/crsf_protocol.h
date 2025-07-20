@@ -55,6 +55,7 @@
 typedef enum : uint8_t
 {
     CRSF_FRAMETYPE_GPS = 0x02,
+    CRSF_FRAMETYPE_GPS_EXTENDED = 0x06,
     CRSF_FRAMETYPE_VARIO = 0x07,
     CRSF_FRAMETYPE_BATTERY_SENSOR = 0x08,
     CRSF_FRAMETYPE_BARO_ALTITUDE = 0x09,
@@ -358,6 +359,15 @@ typedef struct crsf_sensor_gps_s
     uint8_t satellites_in_use; // counter
 } PACKED crsf_sensor_gps_t;
 
+// CRSF_FRAMETYPE_GPS_EXTENDED
+typedef struct crsf_sensor_gps_extended_s
+{
+    uint8_t fix; // 0 = no fix, 1 = fix
+    uint32_t hdop; // hdop / 100
+    uint32_t vdop; // vdop / 100
+    uint32_t pdop; // pdop / 100
+} PACKED crsf_sensor_gps_extended_t;
+
 // CRSF_FRAMETYPE_ATTITUDE
 typedef struct crsf_sensor_attitude_s
 {
@@ -426,6 +436,7 @@ typedef struct elrsLinkStatistics_s : crsfLinkStatistics_t
 
 enum {
     CRSF_FRAME_GPS_PAYLOAD_SIZE = sizeof(crsf_sensor_gps_t),
+    CRSF_FRAME_GPS_EXTENDED_PAYLOAD_SIZE = sizeof(crsf_sensor_gps_extended_t),
     CRSF_FRAME_VARIO_PAYLOAD_SIZE = sizeof(crsf_sensor_vario_t),
     CRSF_FRAME_BARO_ALTITUDE_PAYLOAD_SIZE = sizeof(crsf_sensor_baro_vario_t),
     CRSF_FRAME_BATTERY_SENSOR_PAYLOAD_SIZE = sizeof(crsf_sensor_battery_t),
